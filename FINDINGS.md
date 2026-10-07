@@ -48,7 +48,10 @@ All offsets are ROM file offsets (add `0x08000000` for GBA bus addresses).
 - No prior hack found that adds a 13th+ class.
 
 ## RAM
-- Party: `0x020026CC`, 4 characters × `0x48` bytes (field offsets TBD). Inventory `0x020027EC`, gil `0x02002AB4`.
+- Party: `0x020026CC`, 4 characters × `0x48` bytes; field layout in [docs/class_handling.md](docs/class_handling.md). Inventory `0x020027EC`, gil `0x02002AB4`.
+
+## Class handling
+See [docs/class_handling.md](docs/class_handling.md) for every class-dependent site.
 
 ## Toolchain
 - `tools/setup.py`: armips 0.11.0, Flips v198; `--ghidra` adds JDK 21, Ghidra 12.0.2, gba-ghidra-loader.

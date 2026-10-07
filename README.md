@@ -27,8 +27,9 @@ data.
 3. `python tools/build.py` writes `build/ff1dos_classes.gba` and `build/ff1dos_classes.bps`.
 
 For reverse-engineering work, `python tools/setup.py --ghidra` also fetches JDK 21, Ghidra
-12.0.2 and the [GBA loader](https://github.com/pudii/gba-ghidra-loader); start it with
-`tools\ghidra.bat`. `lua/devtools.lua` holds helper functions for mGBA's scripting console.
+12.0.2 and the [GBA loader](https://github.com/pudii/gba-ghidra-loader); run
+`python tools/ghidra.py analyze` once to build the Ghidra project, then
+`python tools/ghidra.py` to open it. `lua/devtools.lua` holds helper functions for mGBA's scripting console.
 
 ## Layout
 

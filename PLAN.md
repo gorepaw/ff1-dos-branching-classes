@@ -53,13 +53,15 @@ control + wards; Ranger = physical precision + bows + utility; Ninja = pure phys
 - The repo never contains ROM data or third-party files; extracted data is generated
   locally from the user's ROM.
 
-### Phase 1 — Map class handling (research, no changes yet)
+### Phase 1 — Map class handling ✅ (see [docs/class_handling.md](docs/class_handling.md))
 Find and document every place that depends on class ID or class count:
 the bitmask function(s) and every caller, the 12-entry tables, the hardcoded class checks
 (MP gain `0x06A264`, Monk/Master unarmed, Ninja/Master armor/evade quirks, etc.),
 the class change event and its `+6` logic, sprite/portrait/map-graphic lookups per class,
 menu layouts (2×6 class grid), and the save-data class byte.
 Deliverable: `docs/class_handling.md`, a checklist of every site to patch.
+Result: promotion is a lookup table (`0x21609A`), not `+6`; no central class→bit
+function, so ~8 mapping sites get rewired to one new `ClassMaskBit()`.
 
 ### Phase 2 — 16-class engine
 Expand and relocate the tables; patch the bitmask mapping and all class-bound code;
