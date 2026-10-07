@@ -1,0 +1,25 @@
+# Never commit ROMs, saves, or save states (copyrighted / personal)
+*.gba
+*.GBA
+*.sav
+*.ss[0-9]
+*.ss
+*.state
+
+# Build output
+/build/
+
+# Downloaded third-party tools (fetched by tools/setup.py)
+/tools/bin/
+
+# Local research copies of third-party docs/data (see FINDINGS.md for source links)
+/research/
+
+# Ghidra project files
+/ghidra/
+*.gpr
+*.rep/
+
+# Python
+__pycache__/
+*.pyc
