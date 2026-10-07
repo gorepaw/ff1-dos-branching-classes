@@ -21,9 +21,17 @@ LEVELUP_TABLE = 0x223ADC  # 6 classes x 99 levels, 1 byte each
 WEAPON_NAMES = 0x19A65A
 SPELL_NAMES = 0x1A021D
 FREE_SPACE = 0xEE0760  # 0xFF-filled to end of ROM
+# Free-space layout: armips code lives in [FREE_CODE, FREE_DATA) (see src/main.asm),
+# Python data patches allocate tables from FREE_DATA upward.
+FREE_CODE = 0xEE0800
+FREE_DATA = 0xEE1000
 
 CLASSES = ["Warrior", "Thief", "Monk", "Red Mage", "White Mage", "Black Mage",
            "Knight", "Ninja", "Master", "Red Wizard", "White Wizard", "Black Wizard"]
+
+# New classes 12-15: (name, base class, existing promoted class used as placeholder)
+NEW_CLASSES = [("Dark Knight", 0, 6), ("Ranger", 1, 7), ("Druid", 2, 8), ("Spellblade", 3, 9)]
+NUM_CLASSES = 16
 
 
 def find_base_rom():
@@ -45,6 +53,31 @@ def class_bit(class_id):
     if class_id < 12:
         return (class_id // 6) * 8 + class_id % 6
     return (6, 7, 14, 15)[class_id - 12]  # planned mapping for new classes 12-15
+
+
+class FreeSpace:
+    """Bump allocator over 0xFF-filled free space; refuses to overwrite anything else."""
+
+    def __init__(self, rom, start=FREE_DATA, end=BASE_SIZE):
+        self.rom, self.pos, self.end = rom, start, end
+
+    def alloc(self, data, align=4):
+        self.pos = (self.pos + align - 1) & ~(align - 1)
+        addr = self.pos
+        if addr + len(data) > self.end or any(b != 0xFF for b in self.rom[addr:addr + len(data)]):
+            raise ValueError(f"free space at {addr:#x} is not free")
+        self.rom[addr:addr + len(data)] = data
+        self.pos += len(data)
+        return addr
+
+
+def repoint(rom, sites, old, new):
+    """Replace a 32-bit ROM pointer at each site, checking it still holds `old`."""
+    for s in sites:
+        cur = u32(rom, s)
+        if cur != GBA_ROM + old:
+            raise ValueError(f"{s:#x}: expected pointer {GBA_ROM + old:#x}, found {cur:#x}")
+        struct.pack_into("<I", rom, s, GBA_ROM + new)
 
 
 def u16(d, o):

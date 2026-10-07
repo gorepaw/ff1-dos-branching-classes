@@ -63,9 +63,14 @@ Deliverable: `docs/class_handling.md`, a checklist of every site to patch.
 Result: promotion is a lookup table (`0x21609A`), not `+6`; no central class→bit
 function, so ~8 mapping sites get rewired to one new `ClassMaskBit()`.
 
-### Phase 2 — 16-class engine
+### Phase 2 — 16-class engine (implemented; in-game check pending)
 Expand and relocate the tables; patch the bitmask mapping and all class-bound code;
 placeholder names and palette-swap graphics for 12–15.
+Done: `data/classes16.py` (16-entry name, growth, accuracy, magic-resist, field-sprite and
+graphics tables) + `src/classes16.asm` (ClassBitLo/Hi via literal repoints, battle equip
+switch → ClassMaskWord, growth rows per class). `tests/test_classes16.py` runs the patched
+routines in a CPU emulator against vanilla. New classes currently look and grow like
+their template (DK=Knight art/Warrior growth, etc.); custom palettes come with phase 5/7.
 **Milestone:** poke a character to class 12–15 with Lua → status, equip, magic menu,
 battle, level-up, and save/load all work.
 

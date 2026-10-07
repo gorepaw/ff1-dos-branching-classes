@@ -25,6 +25,8 @@ data.
    (SHA1 `6472695d69661490f78245e2982e1e676c080be7`, any filename works).
 2. `python tools/setup.py` downloads armips and Flips into `tools/bin/`.
 3. `python tools/build.py` writes `build/ff1dos_classes.gba` and `build/ff1dos_classes.bps`.
+4. Optional: `pip install -r tools/requirements.txt`, then `python tests/test_classes16.py`
+   runs the patched routines in a CPU emulator and compares them against vanilla.
 
 For reverse-engineering work, `python tools/setup.py --ghidra` also fetches JDK 21, Ghidra
 12.0.2 and the [GBA loader](https://github.com/pudii/gba-ghidra-loader); run
@@ -37,6 +39,7 @@ For reverse-engineering work, `python tools/setup.py --ghidra` also fetches JDK 
 src/     armips assembly (src/main.asm is the entry point)
 data/    Python data patches, each exposing apply(rom)
 tools/   build, setup, and ROM helper scripts
+tests/   emulator-based checks of patched code
 lua/     mGBA scripting helpers
 ```
 

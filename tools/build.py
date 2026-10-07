@@ -39,7 +39,8 @@ def main():
     OUT_ROM.write_bytes(rom)
 
     rel_rom = OUT_ROM.relative_to(ROOT).as_posix()
-    subprocess.run([str(BIN / "armips/armips.exe"), "src/main.asm", "-strequ", "ROMFILE", rel_rom],
+    subprocess.run([str(BIN / "armips/armips.exe"), "src/main.asm", "-strequ", "ROMFILE", rel_rom,
+                    "-sym", "build/ff1dos_classes.sym"],
                    cwd=ROOT, check=True)
 
     OUT_BPS.unlink(missing_ok=True)

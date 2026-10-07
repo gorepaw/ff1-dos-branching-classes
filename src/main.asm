@@ -8,13 +8,13 @@
 
 ; ---------------------------------------------------------------------------
 ; Free space: 0x08EE0760 - 0x08FFFFFF is 0xFF padding (~1.1 MiB).
-; Hooks overwrite vanilla code in place; new code and relocated tables go in
-; free space. Each feature gets its own file and its own fixed slice of free
-; space, so the layout doesn't shift when one feature grows.
+;   0x08EE0800 - 0x08EE0FFF  new code (this file and its includes)
+;   0x08EE1000 - ...         tables built by data/*.py (romlib.FREE_DATA)
+; Hooks overwrite vanilla code in place; new code goes in the code area.
 ; ---------------------------------------------------------------------------
-.definelabel FreeSpace,    0x08EE0800
-.definelabel FreeSpaceEnd, 0x09000000
+.definelabel FreeSpace,        0x08EE0800
+.definelabel FreeSpaceCodeEnd, 0x08EE1000
 
-; .include "src/classes16.asm"   ; phase 2
+.include "src/classes16.asm"   ; phase 2: 16-class engine
 
 .close
