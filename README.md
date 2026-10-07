@@ -30,8 +30,9 @@ data.
 
 For reverse-engineering work, `python tools/setup.py --ghidra` also fetches JDK 21, Ghidra
 12.0.2 and the [GBA loader](https://github.com/pudii/gba-ghidra-loader); run
-`python tools/ghidra.py analyze` once to build the Ghidra project, then
-`python tools/ghidra.py` to open it. `lua/devtools.lua` holds helper functions for mGBA's scripting console.
+`python tools/ghidra.py import` once to create the Ghidra project, then
+`python tools/ghidra.py` to open it (or `decomp out.c <addr>` to decompile headlessly).
+`lua/devtools.lua` holds helper functions for mGBA's scripting console.
 
 ## Layout
 
