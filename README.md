@@ -46,3 +46,8 @@ Research built on work by the Dawn of Souls hacking community:
 [Jeff Ludwig (Ludmeister)](https://www.jeffludwig.com/finalfantasy/hacking-notes.php),
 Kea, exline (FFI DoS Editor), and abyssonym
 ([Approaching Chaos](https://github.com/abyssonym/approaching_chaos)).
+
+## License
+
+MIT for the code and docs in this repo (see [LICENSE](LICENSE)). It does not cover
+Final Fantasy or any game data; you need your own legally obtained ROM.
